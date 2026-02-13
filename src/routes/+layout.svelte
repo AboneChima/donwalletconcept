@@ -3,6 +3,7 @@
 	import Nav from '$lib/components/Nav.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import PageLoader from '$lib/components/PageLoader.svelte';
+	import WhatsAppFloat from '$lib/components/WhatsAppFloat.svelte';
 </script>
 
 <PageLoader />
@@ -13,4 +14,5 @@
 		<slot />
 	</main>
 	<Footer />
+	<WhatsAppFloat />
 </div>

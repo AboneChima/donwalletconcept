@@ -1,5 +1,2 @@
-<script>
-	// Admin layout without navigation
-</script>
-
+<!-- Admin layout without navigation and footer -->
 <slot />

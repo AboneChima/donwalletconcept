@@ -120,9 +120,9 @@
 							<div>
 								<p class="text-xs sm:text-sm text-gray-accent mb-1">Email</p>
 								<a
-									href="mailto:info@donwallet.com"
+									href="mailto:ugoobiorah@gmail.com"
 									class="text-base sm:text-lg hover:text-accent transition-colors break-all"
-									>info@donwallet.com</a
+									>ugoobiorah@gmail.com</a
 								>
 							</div>
 						</div>
@@ -141,8 +141,8 @@
 							<div>
 								<p class="text-xs sm:text-sm text-gray-accent mb-1">Phone</p>
 								<a
-									href="tel:+1234567890"
-									class="text-base sm:text-lg hover:text-accent transition-colors">+123 456 7890</a
+									href="tel:+2348137706136"
+									class="text-base sm:text-lg hover:text-accent transition-colors">+234 813 770 6136</a
 								>
 							</div>
 						</div>
@@ -158,10 +158,10 @@
 							<div>
 								<p class="text-xs sm:text-sm text-gray-accent mb-1">WhatsApp</p>
 								<a
-									href="https://wa.me/1234567890"
+									href="https://wa.me/2348137706136"
 									target="_blank"
 									rel="noopener noreferrer"
-									class="text-base sm:text-lg hover:text-accent transition-colors">+123 456 7890</a
+									class="text-base sm:text-lg hover:text-accent transition-colors">+234 813 770 6136</a
 								>
 							</div>
 						</div>

@@ -23,6 +23,7 @@
 	let projectToDelete: Project | null = null;
 	let loading = false;
 	let error = '';
+	let showForm = false;
 
 	// Form state
 	let formData = {
@@ -49,10 +50,10 @@
 			if (response.ok) {
 				allProjects = await response.json();
 			} else {
-				error = 'Failed to load projects';
+				error = 'Failed to load projects. Make sure database is configured in Vercel.';
 			}
 		} catch (err) {
-			error = 'Failed to connect to database';
+			error = 'Failed to connect to database. Check Vercel environment variables.';
 			console.error(err);
 		} finally {
 			loading = false;
@@ -79,12 +80,14 @@
 		};
 		selectedProject = null;
 		isEditing = false;
+		showForm = false;
 		error = '';
 	}
 
 	function editProject(project: Project) {
 		selectedProject = project;
 		isEditing = true;
+		showForm = true;
 		formData = {
 			title: project.title,
 			location: project.location,
@@ -146,14 +149,12 @@
 
 			let response;
 			if (isEditing && selectedProject?.id) {
-				// Update existing project
 				response = await fetch(`/api/projects/${selectedProject.id}`, {
 					method: 'PUT',
 					headers: { 'Content-Type': 'application/json' },
 					body: JSON.stringify(projectData)
 				});
 			} else {
-				// Create new project
 				response = await fetch('/api/projects', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' },
@@ -183,35 +184,33 @@
 
 <div class="min-h-screen bg-gray-50">
 	<!-- Header -->
-	<div class="bg-white border-b border-gray-200">
-		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-			<div class="flex items-center justify-between">
-				<div>
-					<h1 class="text-2xl font-bold text-charcoal">Admin Panel</h1>
-					<p class="text-sm text-gray-600 mt-1">Manage your architectural projects</p>
-				</div>
-				<a
-					href="/"
-					class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
-				>
-					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path
-							stroke-linecap="round"
-							stroke-linejoin="round"
-							stroke-width="2"
-							d="M10 19l-7-7m0 0l7-7m-7 7h18"
-						/>
-					</svg>
-					Back to Site
-				</a>
+	<div class="bg-white border-b border-gray-200 sticky top-0 z-40">
+		<div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+			<div>
+				<h1 class="text-xl font-bold text-charcoal">Admin Panel</h1>
+				<p class="text-xs text-gray-600 mt-0.5">Manage projects</p>
 			</div>
+			<a
+				href="/"
+				class="inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors"
+			>
+				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M10 19l-7-7m0 0l7-7m-7 7h18"
+					/>
+				</svg>
+				<span class="hidden sm:inline">Back to Site</span>
+			</a>
 		</div>
 	</div>
 
-	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+	<div class="max-w-7xl mx-auto px-4 py-6">
 		<!-- Error Message -->
 		{#if error}
-			<div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+			<div class="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
 				{error}
 			</div>
 		{/if}
@@ -225,185 +224,178 @@
 				</div>
 			</div>
 		{/if}
-		<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-			<!-- Project Form -->
-			<div class="lg:col-span-2">
-				<div class="bg-white rounded-xl shadow-sm p-6">
-					<div class="flex items-center justify-between mb-6">
-						<h2 class="text-xl font-bold text-charcoal">
-							{isEditing ? 'Edit Project' : 'Add New Project'}
-						</h2>
-						{#if isEditing}
-							<button
-								on:click={resetForm}
-								class="text-sm text-gray-600 hover:text-charcoal transition-colors"
-							>
-								Cancel Edit
-							</button>
-						{/if}
-					</div>
 
-					<form on:submit|preventDefault={saveProject} class="space-y-5">
-						<!-- Title -->
+		<!-- Add Project Button -->
+		{#if !showForm}
+			<button
+				on:click={() => (showForm = true)}
+				class="w-full sm:w-auto mb-6 px-6 py-3 bg-charcoal text-white font-semibold rounded-lg hover:bg-accent transition-colors shadow-sm flex items-center justify-center gap-2"
+			>
+				<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+				</svg>
+				Add New Project
+			</button>
+		{/if}
+
+		<!-- Project Form -->
+		{#if showForm}
+			<div class="bg-white rounded-xl shadow-sm p-4 sm:p-6 mb-6" in:fly={{ y: -20, duration: 300 }}>
+				<div class="flex items-center justify-between mb-4">
+					<h2 class="text-lg font-bold text-charcoal">
+						{isEditing ? 'Edit Project' : 'Add New Project'}
+					</h2>
+					<button
+						on:click={resetForm}
+						class="text-sm text-gray-600 hover:text-charcoal transition-colors"
+					>
+						Cancel
+					</button>
+				</div>
+
+				<form on:submit|preventDefault={saveProject} class="space-y-4">
+					<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 						<div>
-							<label class="block text-sm font-semibold text-gray-700 mb-2">Project Title</label>
+							<label class="block text-sm font-semibold text-gray-700 mb-1.5">Title</label>
 							<input
 								type="text"
 								bind:value={formData.title}
 								required
-								class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
+								class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-sm"
 								placeholder="Contemporary Bungalow"
 							/>
 						</div>
 
-						<!-- Location & Year -->
-						<div class="grid grid-cols-2 gap-4">
-							<div>
-								<label class="block text-sm font-semibold text-gray-700 mb-2">Location</label>
-								<input
-									type="text"
-									bind:value={formData.location}
-									required
-									class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
-									placeholder="Lagos, Nigeria"
-								/>
-							</div>
-							<div>
-								<label class="block text-sm font-semibold text-gray-700 mb-2">Year</label>
-								<input
-									type="number"
-									bind:value={formData.year}
-									required
-									min="2000"
-									max="2030"
-									class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
-								/>
-							</div>
-						</div>
-
-						<!-- Category & Size -->
-						<div class="grid grid-cols-2 gap-4">
-							<div>
-								<label class="block text-sm font-semibold text-gray-700 mb-2">Category</label>
-								<select
-									bind:value={formData.category}
-									class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
-								>
-									{#each categories as category}
-										<option value={category}>{category}</option>
-									{/each}
-								</select>
-							</div>
-							<div>
-								<label class="block text-sm font-semibold text-gray-700 mb-2">Size</label>
-								<input
-									type="text"
-									bind:value={formData.size}
-									class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
-									placeholder="280 sqm"
-								/>
-							</div>
-						</div>
-
-						<!-- Description -->
 						<div>
-							<label class="block text-sm font-semibold text-gray-700 mb-2">Description</label>
-							<textarea
-								bind:value={formData.description}
-								required
-								rows="3"
-								class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all resize-none"
-								placeholder="A modern single-story bungalow featuring..."
-							></textarea>
-						</div>
-
-						<!-- Thumbnail -->
-						<div>
-							<label class="block text-sm font-semibold text-gray-700 mb-2"
-								>Thumbnail Image URL</label
-							>
+							<label class="block text-sm font-semibold text-gray-700 mb-1.5">Location</label>
 							<input
 								type="text"
-								bind:value={formData.thumbnail}
+								bind:value={formData.location}
 								required
-								class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
-								placeholder="/images/project1.jpg"
+								class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-sm"
+								placeholder="Lagos, Nigeria"
 							/>
 						</div>
 
-						<!-- Gallery Images -->
 						<div>
-							<label class="block text-sm font-semibold text-gray-700 mb-2"
-								>Gallery Images (3 URLs)</label
-							>
-							<div class="space-y-2">
-								{#each formData.images as image, i}
-									<input
-										type="text"
-										bind:value={formData.images[i]}
-										required
-										class="w-full px-4 py-2.5 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all"
-										placeholder="/images/project{i + 1}.jpg"
-									/>
-								{/each}
-							</div>
+							<label class="block text-sm font-semibold text-gray-700 mb-1.5">Year</label>
+							<input
+								type="number"
+								bind:value={formData.year}
+								required
+								min="2000"
+								max="2030"
+								class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-sm"
+							/>
 						</div>
 
-						<!-- Submit Button -->
-						<button
-							type="submit"
-							class="w-full px-6 py-3 bg-charcoal text-white font-semibold rounded-lg hover:bg-accent transition-colors shadow-sm"
-						>
-							{isEditing ? 'Update Project' : 'Add Project'}
-						</button>
-					</form>
-				</div>
-			</div>
-
-			<!-- Projects List -->
-			<div class="lg:col-span-1">
-				<div class="bg-white rounded-xl shadow-sm p-6">
-					<h2 class="text-xl font-bold text-charcoal mb-4">All Projects ({allProjects.length})</h2>
-
-					<div class="space-y-3 max-h-[600px] overflow-y-auto">
-						{#each allProjects as project}
-							<div
-								class="p-4 border border-gray-200 rounded-lg hover:border-accent transition-colors"
-								in:fade={{ duration: 200 }}
+						<div>
+							<label class="block text-sm font-semibold text-gray-700 mb-1.5">Category</label>
+							<select
+								bind:value={formData.category}
+								class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-sm"
 							>
-								<div class="flex items-start gap-3">
-									<img
-										src={project.thumbnail}
-										alt={project.title}
-										class="w-16 h-16 object-cover rounded-lg"
-									/>
-									<div class="flex-1 min-w-0">
-										<h3 class="font-semibold text-sm text-charcoal truncate">
-											{project.title}
-										</h3>
-										<p class="text-xs text-gray-600 mt-1">
-											{project.category} • {project.year}
-										</p>
-										<div class="flex gap-2 mt-2">
-											<button
-												on:click={() => editProject(project)}
-												class="text-xs text-accent hover:text-charcoal transition-colors font-medium"
-											>
-												Edit
-											</button>
-											<button
-												on:click={() => confirmDelete(project)}
-												class="text-xs text-red-600 hover:text-red-700 transition-colors font-medium"
-											>
-												Delete
-											</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						{/each}
+								{#each categories as category}
+									<option value={category}>{category}</option>
+								{/each}
+							</select>
+						</div>
+
+						<div class="sm:col-span-2">
+							<label class="block text-sm font-semibold text-gray-700 mb-1.5">Size (optional)</label>
+							<input
+								type="text"
+								bind:value={formData.size}
+								class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-sm"
+								placeholder="280 sqm"
+							/>
+						</div>
 					</div>
-				</div>
+
+					<div>
+						<label class="block text-sm font-semibold text-gray-700 mb-1.5">Description</label>
+						<textarea
+							bind:value={formData.description}
+							required
+							rows="3"
+							class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all resize-none text-sm"
+							placeholder="A modern single-story bungalow..."
+						></textarea>
+					</div>
+
+					<div>
+						<label class="block text-sm font-semibold text-gray-700 mb-1.5">Thumbnail URL</label>
+						<input
+							type="text"
+							bind:value={formData.thumbnail}
+							required
+							class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-sm"
+							placeholder="/images/project1.jpg"
+						/>
+					</div>
+
+					<div>
+						<label class="block text-sm font-semibold text-gray-700 mb-1.5">Gallery Images (3 URLs)</label>
+						<div class="space-y-2">
+							{#each formData.images as image, i}
+								<input
+									type="text"
+									bind:value={formData.images[i]}
+									required
+									class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-sm"
+									placeholder="/images/project{i + 1}.jpg"
+								/>
+							{/each}
+						</div>
+					</div>
+
+					<button
+						type="submit"
+						class="w-full px-6 py-3 bg-charcoal text-white font-semibold rounded-lg hover:bg-accent transition-colors shadow-sm"
+					>
+						{isEditing ? 'Update Project' : 'Add Project'}
+					</button>
+				</form>
+			</div>
+		{/if}
+
+		<!-- Projects List -->
+		<div class="bg-white rounded-xl shadow-sm p-4 sm:p-6">
+			<h2 class="text-lg font-bold text-charcoal mb-4">All Projects ({allProjects.length})</h2>
+
+			<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+				{#each allProjects as project}
+					<div
+						class="border border-gray-200 rounded-lg p-3 hover:border-accent transition-colors"
+						in:fade={{ duration: 200 }}
+					>
+						<img
+							src={project.thumbnail}
+							alt={project.title}
+							class="w-full h-32 object-cover rounded-lg mb-3"
+						/>
+						<h3 class="font-semibold text-sm text-charcoal truncate mb-1">
+							{project.title}
+						</h3>
+						<p class="text-xs text-gray-600 mb-3">
+							{project.category} • {project.year}
+						</p>
+						<div class="flex gap-2">
+							<button
+								on:click={() => editProject(project)}
+								class="flex-1 text-xs text-accent hover:text-charcoal transition-colors font-medium py-2 border border-accent rounded-lg hover:bg-accent/5"
+							>
+								Edit
+							</button>
+							<button
+								on:click={() => confirmDelete(project)}
+								class="flex-1 text-xs text-red-600 hover:text-red-700 transition-colors font-medium py-2 border border-red-600 rounded-lg hover:bg-red-50"
+							>
+								Delete
+							</button>
+						</div>
+					</div>
+				{/each}
 			</div>
 		</div>
 	</div>
