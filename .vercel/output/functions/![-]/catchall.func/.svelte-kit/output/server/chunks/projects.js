@@ -1,0 +1,53 @@
+const projects = [
+  {
+    slug: "modern-villa",
+    title: "Modern Villa",
+    location: "Los Angeles, CA",
+    year: 2024,
+    category: "Residential",
+    size: "450 sqm",
+    thumbnail: "/images/projects/villa-thumb.jpg",
+    hero: "/images/projects/villa-hero.jpg",
+    description: "A contemporary villa that seamlessly blends indoor and outdoor living spaces. The design emphasizes clean lines, natural materials, and abundant natural light.",
+    images: [
+      "/images/projects/villa-1.jpg",
+      "/images/projects/villa-2.jpg",
+      "/images/projects/villa-3.jpg"
+    ]
+  },
+  {
+    slug: "urban-office",
+    title: "Urban Office Complex",
+    location: "New York, NY",
+    year: 2023,
+    category: "Commercial",
+    size: "2,500 sqm",
+    thumbnail: "/images/projects/office-thumb.jpg",
+    hero: "/images/projects/office-hero.jpg",
+    description: "A sustainable office building designed for the modern workforce. Features include flexible workspaces, green terraces, and energy-efficient systems.",
+    images: [
+      "/images/projects/office-1.jpg",
+      "/images/projects/office-2.jpg",
+      "/images/projects/office-3.jpg"
+    ]
+  },
+  {
+    slug: "minimalist-residence",
+    title: "Minimalist Residence",
+    location: "Tokyo, Japan",
+    year: 2024,
+    category: "Residential",
+    size: "280 sqm",
+    thumbnail: "/images/projects/residence-thumb.jpg",
+    hero: "/images/projects/residence-hero.jpg",
+    description: "An exercise in restraint and precision. Every element serves a purpose, creating a serene living environment that celebrates simplicity.",
+    images: [
+      "/images/projects/residence-1.jpg",
+      "/images/projects/residence-2.jpg",
+      "/images/projects/residence-3.jpg"
+    ]
+  }
+];
+export {
+  projects as p
+};
