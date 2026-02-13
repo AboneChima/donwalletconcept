@@ -37,6 +37,9 @@
 		images: ['', '', '']
 	};
 
+	let thumbnailFile: File | null = null;
+	let galleryFiles: (File | null)[] = [null, null, null];
+
 	const categories = ['Bungalow', 'Duplex', 'Mansion', 'Interiors'];
 
 	onMount(async () => {
@@ -50,14 +53,49 @@
 			if (response.ok) {
 				allProjects = await response.json();
 			} else {
-				error = 'Failed to load projects. Make sure database is configured in Vercel.';
+				error = 'Failed to load projects from database.';
 			}
 		} catch (err) {
-			error = 'Failed to connect to database. Check Vercel environment variables.';
+			error = 'Failed to connect to database.';
 			console.error(err);
 		} finally {
 			loading = false;
 		}
+	}
+
+	function handleThumbnailChange(event: Event) {
+		const target = event.target as HTMLInputElement;
+		if (target.files && target.files[0]) {
+			thumbnailFile = target.files[0];
+			// Create preview URL
+			formData.thumbnail = URL.createObjectURL(thumbnailFile);
+		}
+	}
+
+	function handleGalleryChange(event: Event, index: number) {
+		const target = event.target as HTMLInputElement;
+		if (target.files && target.files[0]) {
+			galleryFiles[index] = target.files[0];
+			// Create preview URL
+			formData.images[index] = URL.createObjectURL(galleryFiles[index]!);
+		}
+	}
+
+	async function uploadImage(file: File): Promise<string> {
+		const formData = new FormData();
+		formData.append('file', file);
+
+		const response = await fetch('/api/upload', {
+			method: 'POST',
+			body: formData
+		});
+
+		if (!response.ok) {
+			throw new Error('Failed to upload image');
+		}
+
+		const data = await response.json();
+		return data.url;
 	}
 
 	function generateSlug(title: string): string {
@@ -78,6 +116,8 @@
 			thumbnail: '',
 			images: ['', '', '']
 		};
+		thumbnailFile = null;
+		galleryFiles = [null, null, null];
 		selectedProject = null;
 		isEditing = false;
 		showForm = false;
@@ -134,6 +174,20 @@
 		error = '';
 
 		try {
+			// Upload thumbnail if new file selected
+			let thumbnailUrl = formData.thumbnail;
+			if (thumbnailFile) {
+				thumbnailUrl = await uploadImage(thumbnailFile);
+			}
+
+			// Upload gallery images if new files selected
+			let imageUrls = [...formData.images];
+			for (let i = 0; i < galleryFiles.length; i++) {
+				if (galleryFiles[i]) {
+					imageUrls[i] = await uploadImage(galleryFiles[i]!);
+				}
+			}
+
 			const projectData = {
 				slug: generateSlug(formData.title),
 				title: formData.title,
@@ -142,9 +196,9 @@
 				category: formData.category,
 				size: formData.size || null,
 				description: formData.description,
-				thumbnail: formData.thumbnail,
-				hero: formData.thumbnail,
-				images: formData.images
+				thumbnail: thumbnailUrl,
+				hero: thumbnailUrl,
+				images: imageUrls
 			};
 
 			let response;
@@ -170,7 +224,7 @@
 				error = data.error || 'Failed to save project';
 			}
 		} catch (err) {
-			error = 'Failed to save project';
+			error = 'Failed to save project: ' + (err as Error).message;
 			console.error(err);
 		} finally {
 			loading = false;
@@ -325,41 +379,36 @@
 
 					<div>
 						<label class="block text-sm font-semibold text-gray-700 mb-1.5">Main Image</label>
-						<div class="space-y-2">
-							<input
-								type="text"
-								bind:value={formData.thumbnail}
-								required
-								class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-sm"
-								placeholder="/images/project1.jpg"
-							/>
-							<div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
-								<p class="text-xs text-blue-800 font-medium mb-1">📸 How to add images:</p>
-								<ol class="text-xs text-blue-700 space-y-1 ml-4 list-decimal">
-									<li>Upload your image to the <code class="bg-blue-100 px-1 rounded">/static/images/</code> folder</li>
-									<li>Name it like: <code class="bg-blue-100 px-1 rounded">project14.jpg</code></li>
-									<li>Then type the path here: <code class="bg-blue-100 px-1 rounded">/images/project14.jpg</code></li>
-								</ol>
-							</div>
-						</div>
+						<input
+							type="file"
+							accept="image/*"
+							on:change={handleThumbnailChange}
+							required={!isEditing}
+							class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-accent file:text-white hover:file:bg-accent/90"
+						/>
+						{#if formData.thumbnail}
+							<img src={formData.thumbnail} alt="Preview" class="mt-2 w-32 h-32 object-cover rounded-lg" />
+						{/if}
 					</div>
 
 					<div>
 						<label class="block text-sm font-semibold text-gray-700 mb-1.5">
-							Gallery Images (Optional - for project detail page)
+							Gallery Images (Optional)
 						</label>
 						<div class="space-y-2">
-							{#each formData.images as image, i}
-								<input
-									type="text"
-									bind:value={formData.images[i]}
-									class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-sm"
-									placeholder="/images/project{i + 1}.jpg (optional)"
-								/>
+							{#each [0, 1, 2] as i}
+								<div>
+									<input
+										type="file"
+										accept="image/*"
+										on:change={(e) => handleGalleryChange(e, i)}
+										class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-charcoal hover:file:bg-gray-200"
+									/>
+									{#if formData.images[i]}
+										<img src={formData.images[i]} alt="Preview {i + 1}" class="mt-2 w-24 h-24 object-cover rounded-lg" />
+									{/if}
+								</div>
 							{/each}
-							<p class="text-xs text-gray-500">
-								💡 These images show when someone clicks on the project to see more details. You can use the same main image or add different angles.
-							</p>
 						</div>
 					</div>
 
