@@ -182,7 +182,7 @@
 	<title>Admin Panel - Don Wallet Construction Company Limited</title>
 </svelte:head>
 
-<div class="min-h-screen bg-gray-50 pt-20">
+<div class="min-h-screen bg-gray-50">
 	<!-- Header - Fixed at top -->
 	<div class="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-40">
 		<div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
@@ -207,7 +207,7 @@
 		</div>
 	</div>
 
-	<div class="max-w-7xl mx-auto px-4 py-6">
+	<div class="pt-20 max-w-7xl mx-auto px-4 py-6">
 		<!-- Error Message -->
 		{#if error}
 			<div class="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
@@ -324,7 +324,7 @@
 					</div>
 
 					<div>
-						<label class="block text-sm font-semibold text-gray-700 mb-1.5">Thumbnail URL</label>
+						<label class="block text-sm font-semibold text-gray-700 mb-1.5">Main Image</label>
 						<div class="space-y-2">
 							<input
 								type="text"
@@ -333,26 +333,32 @@
 								class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-sm"
 								placeholder="/images/project1.jpg"
 							/>
-							<p class="text-xs text-gray-500">
-								💡 Tip: Upload images to /static/images/ folder, then use path like /images/project1.jpg
-							</p>
+							<div class="bg-blue-50 border border-blue-200 rounded-lg p-3">
+								<p class="text-xs text-blue-800 font-medium mb-1">📸 How to add images:</p>
+								<ol class="text-xs text-blue-700 space-y-1 ml-4 list-decimal">
+									<li>Upload your image to the <code class="bg-blue-100 px-1 rounded">/static/images/</code> folder</li>
+									<li>Name it like: <code class="bg-blue-100 px-1 rounded">project14.jpg</code></li>
+									<li>Then type the path here: <code class="bg-blue-100 px-1 rounded">/images/project14.jpg</code></li>
+								</ol>
+							</div>
 						</div>
 					</div>
 
 					<div>
-						<label class="block text-sm font-semibold text-gray-700 mb-1.5">Gallery Images (3 URLs)</label>
+						<label class="block text-sm font-semibold text-gray-700 mb-1.5">
+							Gallery Images (Optional - for project detail page)
+						</label>
 						<div class="space-y-2">
 							{#each formData.images as image, i}
 								<input
 									type="text"
 									bind:value={formData.images[i]}
-									required
 									class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-sm"
-									placeholder="/images/project{i + 1}.jpg"
+									placeholder="/images/project{i + 1}.jpg (optional)"
 								/>
 							{/each}
 							<p class="text-xs text-gray-500">
-								💡 Tip: Use the same or different images from your /static/images/ folder
+								💡 These images show when someone clicks on the project to see more details. You can use the same main image or add different angles.
 							</p>
 						</div>
 					</div>

@@ -4,15 +4,22 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import PageLoader from '$lib/components/PageLoader.svelte';
 	import WhatsAppFloat from '$lib/components/WhatsAppFloat.svelte';
+	import { page } from '$app/stores';
+
+	$: isAdminPage = $page.url.pathname === '/admin';
 </script>
 
 <PageLoader />
 
 <div class="min-h-screen flex flex-col">
-	<Nav />
+	{#if !isAdminPage}
+		<Nav />
+	{/if}
 	<main class="flex-1">
 		<slot />
 	</main>
-	<Footer />
-	<WhatsAppFloat />
+	{#if !isAdminPage}
+		<Footer />
+		<WhatsAppFloat />
+	{/if}
 </div>
