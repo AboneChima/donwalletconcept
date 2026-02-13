@@ -13,6 +13,15 @@
 	// Get unique categories
 	const categories = [...new Set(projects.map((p) => p.category))];
 
+	// Featured projects for slider - project21, 7, 9, 22, 8
+	const sliderProjects = projects.filter(p => 
+		p.thumbnail === '/images/project21.jpg' || 
+		p.thumbnail === '/images/project7.jpg' || 
+		p.thumbnail === '/images/project9.jpg' || 
+		p.thumbnail === '/images/project22.jpg' || 
+		p.thumbnail === '/images/project8.jpg'
+	);
+
 	onMount(() => {
 		setTimeout(() => (visible = true), 200);
 	});
@@ -46,7 +55,7 @@
 
 			<!-- Animated Slider -->
 			<div class="mb-12" in:fly={{ y: 30, duration: 600, delay: 100 }}>
-				<AnimatedProjectSlider {projects} />
+				<AnimatedProjectSlider projects={sliderProjects} />
 			</div>
 
 			<!-- Filter -->

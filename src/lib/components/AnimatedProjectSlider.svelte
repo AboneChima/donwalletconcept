@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { fade, fly } from 'svelte/transition';
-	import { cubicOut } from 'svelte/easing';
+	import { fade } from 'svelte/transition';
+	import { quintOut } from 'svelte/easing';
 	import type { Project } from '$lib/data/projects';
 	import ProjectModal from './ProjectModal.svelte';
 
@@ -12,7 +12,6 @@
 	let isPaused = false;
 	let selectedProject: Project | null = null;
 	let isModalOpen = false;
-	let direction = 1;
 
 	onMount(() => {
 		startAutoplay();
@@ -32,17 +31,14 @@
 	}
 
 	function next() {
-		direction = 1;
 		currentIndex = (currentIndex + 1) % projects.length;
 	}
 
 	function prev() {
-		direction = -1;
 		currentIndex = (currentIndex - 1 + projects.length) % projects.length;
 	}
 
 	function goTo(index: number) {
-		direction = index > currentIndex ? 1 : -1;
 		currentIndex = index;
 	}
 
@@ -59,49 +55,49 @@
 </script>
 
 <div class="relative group" on:mouseenter={() => (isPaused = true)} on:mouseleave={() => (isPaused = false)}>
-	<!-- Main Slider - Compact & Clean -->
-	<div class="relative aspect-[21/9] rounded-xl overflow-hidden bg-gray-100 shadow-md">
+	<!-- Main Slider - Smooth & Clean -->
+	<div class="relative aspect-[21/9] rounded-2xl overflow-hidden bg-gray-100 shadow-lg">
 		{#each projects as project, i}
 			{#if i === currentIndex}
 				<button
 					on:click={() => openProject(project)}
 					class="absolute inset-0 group/item cursor-pointer"
-					in:fly={{ x: direction * 50, duration: 600, easing: cubicOut }}
+					in:fade={{ duration: 800, easing: quintOut }}
 				>
-					<!-- Image - Clean, no overlay by default -->
+					<!-- Image with smooth zoom -->
 					<div class="relative w-full h-full overflow-hidden">
 						<img
 							src={project.thumbnail}
 							alt={project.title}
-							class="w-full h-full object-cover transition-all duration-500 ease-out group-hover/item:scale-105"
+							class="w-full h-full object-cover transition-transform duration-[3000ms] ease-out group-hover/item:scale-110"
 						/>
 						
-						<!-- Subtle gradient overlay - only on hover -->
-						<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity duration-300"></div>
+						<!-- Gradient overlay - subtle on hover -->
+						<div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover/item:opacity-100 transition-opacity duration-500"></div>
 					</div>
 
-					<!-- Content - Only visible on hover -->
-					<div class="absolute inset-0 flex flex-col justify-end p-5 sm:p-6 opacity-0 group-hover/item:opacity-100 transition-all duration-300">
-						<div class="transform translate-y-4 group-hover/item:translate-y-0 transition-transform duration-300">
+					<!-- Content - Smooth reveal on hover -->
+					<div class="absolute inset-0 flex flex-col justify-end p-6 sm:p-8 opacity-0 group-hover/item:opacity-100 transition-all duration-500">
+						<div class="transform translate-y-6 group-hover/item:translate-y-0 transition-transform duration-500 ease-out">
 							<!-- Category badge -->
-							<div class="flex items-center gap-2 mb-2">
-								<span class="px-2.5 py-1 bg-white/95 backdrop-blur-sm text-charcoal text-xs font-semibold rounded-full">
+							<div class="flex items-center gap-2 mb-3">
+								<span class="px-3 py-1.5 bg-white/95 backdrop-blur-sm text-charcoal text-xs font-semibold rounded-full shadow-lg">
 									{project.category}
 								</span>
-								<span class="text-white text-xs">{project.year}</span>
+								<span class="text-white text-sm font-medium">{project.year}</span>
 								{#if project.size}
-									<span class="text-white text-xs">• {project.size}</span>
+									<span class="text-white/80 text-sm">• {project.size}</span>
 								{/if}
 							</div>
 							
 							<!-- Title -->
-							<h3 class="text-xl sm:text-2xl font-bold mb-1.5 text-white tracking-tight">
+							<h3 class="text-2xl sm:text-3xl font-bold mb-2 text-white tracking-tight">
 								{project.title}
 							</h3>
 							
 							<!-- Location -->
-							<p class="text-white/90 text-sm flex items-center gap-1">
-								<svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+							<p class="text-white/90 text-sm flex items-center gap-1.5">
+								<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
 									<path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
 								</svg>
 								{project.location}
@@ -109,10 +105,10 @@
 						</div>
 					</div>
 
-					<!-- View icon - appears on hover -->
-					<div class="absolute top-3 right-3 opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
-						<div class="w-8 h-8 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-lg">
-							<svg class="w-4 h-4 text-charcoal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<!-- View icon - smooth appearance -->
+					<div class="absolute top-4 right-4 opacity-0 group-hover/item:opacity-100 transition-all duration-500 transform scale-90 group-hover/item:scale-100">
+						<div class="w-10 h-10 bg-white/95 backdrop-blur-sm rounded-full flex items-center justify-center shadow-xl">
+							<svg class="w-5 h-5 text-charcoal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
 							</svg>
@@ -122,45 +118,45 @@
 			{/if}
 		{/each}
 
-		<!-- Navigation Arrows - Minimal -->
+		<!-- Navigation Arrows - Smooth appearance -->
 		<button
 			on:click={prev}
-			class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/95 hover:bg-white rounded-full flex items-center justify-center transition-all duration-200 shadow-lg opacity-0 group-hover:opacity-100"
+			class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/95 hover:bg-white rounded-full flex items-center justify-center transition-all duration-300 shadow-xl opacity-0 group-hover:opacity-100 hover:scale-110"
 			aria-label="Previous"
 		>
-			<svg class="w-4 h-4 text-charcoal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<svg class="w-5 h-5 text-charcoal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
 			</svg>
 		</button>
 
 		<button
 			on:click={next}
-			class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 bg-white/95 hover:bg-white rounded-full flex items-center justify-center transition-all duration-200 shadow-lg opacity-0 group-hover:opacity-100"
+			class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 bg-white/95 hover:bg-white rounded-full flex items-center justify-center transition-all duration-300 shadow-xl opacity-0 group-hover:opacity-100 hover:scale-110"
 			aria-label="Next"
 		>
-			<svg class="w-4 h-4 text-charcoal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+			<svg class="w-5 h-5 text-charcoal" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
 			</svg>
 		</button>
 	</div>
 
-	<!-- Progress Indicators - Minimal -->
-	<div class="flex justify-center gap-1.5 mt-4">
+	<!-- Progress Indicators - Smooth & Modern -->
+	<div class="flex justify-center gap-2 mt-5">
 		{#each projects as _, i}
 			<button
 				on:click={() => goTo(i)}
-				class="relative h-1 rounded-full transition-all duration-300 ease-out {i === currentIndex
-					? 'w-8 bg-accent'
-					: 'w-6 bg-gray-300 hover:bg-gray-400'}"
+				class="relative h-1.5 rounded-full transition-all duration-500 ease-out {i === currentIndex
+					? 'w-10 bg-accent shadow-lg shadow-accent/30'
+					: 'w-6 bg-gray-300 hover:bg-gray-400 hover:w-8'}"
 				aria-label="Go to slide {i + 1}"
-			></button>
+			>
+				{#if i === currentIndex}
+					<div class="absolute inset-0 bg-accent rounded-full animate-pulse"></div>
+				{/if}
+			</button>
 		{/each}
 	</div>
-
-
 </div>
 
 <!-- Project Modal -->
 <ProjectModal project={selectedProject} bind:isOpen={isModalOpen} on:close={closeModal} />
-
-
