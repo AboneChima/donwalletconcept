@@ -38,9 +38,9 @@
 	});
 
 	const featuredProjects = projects.filter(p => 
-		p.thumbnail === '/images/project7.jpg' || 
-		p.thumbnail === '/images/project22.jpg' || 
-		p.thumbnail === '/images/project9.jpg'
+		p.thumbnail === '/images/project1.jpg' || 
+		p.thumbnail === '/images/project3.jpg' || 
+		p.thumbnail === '/images/project6.jpg'
 	);
 
 	function handleProjectClick(event: CustomEvent<Project>) {

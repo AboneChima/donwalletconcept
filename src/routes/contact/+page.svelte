@@ -194,11 +194,11 @@
 				<div class="bg-gray-50 rounded-3xl p-6 sm:p-8">
 					<div class="mb-6">
 						<h3 class="text-xs text-gray-500 mb-2 uppercase tracking-wide font-medium">Location</h3>
-						<p class="text-base text-charcoal font-medium">Port Harcourt, Rivers State, Nigeria</p>
+						<p class="text-base text-charcoal font-medium">Anambra State, Nigeria</p>
 					</div>
 					<div class="w-full h-64 sm:h-80 lg:h-96 bg-white rounded-2xl overflow-hidden shadow-inner">
 						<iframe
-							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127117.8157!2d6.9!3d4.8!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1069cd9b8c5b1d0f%3A0x3a1c3f8e5e5e5e5e!2sPort%20Harcourt%2C%20Nigeria!5e0!3m2!1sen!2sus!4v1234567890"
+							src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d507617.8!2d6.9!3d6.2!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1043a7b6c8b8b8b9%3A0x3a1c3f8e5e5e5e5e!2sAnambra%2C%20Nigeria!5e0!3m2!1sen!2sus!4v1234567890"
 							width="100%"
 							height="100%"
 							style="border:0;"

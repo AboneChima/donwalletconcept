@@ -179,12 +179,12 @@
 </script>
 
 <svelte:head>
-	<title>Admin Panel - Don Wallet Concept</title>
+	<title>Admin Panel - Don Wallet Construction Company Limited</title>
 </svelte:head>
 
-<div class="min-h-screen bg-gray-50">
-	<!-- Header -->
-	<div class="bg-white border-b border-gray-200 sticky top-0 z-40">
+<div class="min-h-screen bg-gray-50 pt-20">
+	<!-- Header - Fixed at top -->
+	<div class="bg-white border-b border-gray-200 fixed top-0 left-0 right-0 z-40">
 		<div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
 			<div>
 				<h1 class="text-xl font-bold text-charcoal">Admin Panel</h1>
@@ -325,13 +325,18 @@
 
 					<div>
 						<label class="block text-sm font-semibold text-gray-700 mb-1.5">Thumbnail URL</label>
-						<input
-							type="text"
-							bind:value={formData.thumbnail}
-							required
-							class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-sm"
-							placeholder="/images/project1.jpg"
-						/>
+						<div class="space-y-2">
+							<input
+								type="text"
+								bind:value={formData.thumbnail}
+								required
+								class="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-accent focus:border-transparent transition-all text-sm"
+								placeholder="/images/project1.jpg"
+							/>
+							<p class="text-xs text-gray-500">
+								💡 Tip: Upload images to /static/images/ folder, then use path like /images/project1.jpg
+							</p>
+						</div>
 					</div>
 
 					<div>
@@ -346,6 +351,9 @@
 									placeholder="/images/project{i + 1}.jpg"
 								/>
 							{/each}
+							<p class="text-xs text-gray-500">
+								💡 Tip: Use the same or different images from your /static/images/ folder
+							</p>
 						</div>
 					</div>
 

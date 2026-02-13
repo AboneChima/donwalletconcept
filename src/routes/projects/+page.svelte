@@ -13,13 +13,12 @@
 	// Get unique categories
 	const categories = [...new Set(projects.map((p) => p.category))];
 
-	// Featured projects for slider - project21, 7, 9, 22, 8
+	// Featured projects for slider - project 1, 13, 5, 2
 	const sliderProjects = projects.filter(p => 
-		p.thumbnail === '/images/project21.jpg' || 
-		p.thumbnail === '/images/project7.jpg' || 
-		p.thumbnail === '/images/project9.jpg' || 
-		p.thumbnail === '/images/project22.jpg' || 
-		p.thumbnail === '/images/project8.jpg'
+		p.thumbnail === '/images/project1.jpg' || 
+		p.thumbnail === '/images/project13.jpg' || 
+		p.thumbnail === '/images/project5.jpg' || 
+		p.thumbnail === '/images/project2.jpg'
 	);
 
 	onMount(() => {
