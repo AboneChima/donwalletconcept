@@ -4,22 +4,21 @@
 	import AnimatedProjectSlider from '$lib/components/AnimatedProjectSlider.svelte';
 	import MasonryGrid from '$lib/components/MasonryGrid.svelte';
 	import ProjectFilter from '$lib/components/ProjectFilter.svelte';
-	import { projects } from '$lib/data/projects';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
 
 	let visible = false;
 	let activeCategory = 'All';
-	let filteredProjects = projects;
+	
+	$: allProjects = data.projects || [];
+	$: sliderProjects = data.sliderProjects || [];
+	$: filteredProjects = activeCategory === 'All' 
+		? allProjects 
+		: allProjects.filter((p: any) => p.category === activeCategory);
 
 	// Get unique categories
-	const categories = [...new Set(projects.map((p) => p.category))];
-
-	// Featured projects for slider - project 8, 9, 13, 5
-	const sliderProjects = projects.filter(p => 
-		p.thumbnail === '/images/project8.jpg' || 
-		p.thumbnail === '/images/project9.jpg' || 
-		p.thumbnail === '/images/project13.jpg' || 
-		p.thumbnail === '/images/project5.jpg'
-	);
+	$: categories = [...new Set(allProjects.map((p: any) => p.category))];
 
 	onMount(() => {
 		setTimeout(() => (visible = true), 200);
@@ -27,11 +26,6 @@
 
 	function handleFilterChange(category: string) {
 		activeCategory = category;
-		if (category === 'All') {
-			filteredProjects = projects;
-		} else {
-			filteredProjects = projects.filter((p) => p.category === category);
-		}
 	}
 </script>
 

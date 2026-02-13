@@ -3,14 +3,18 @@
 	import { fade, fly } from 'svelte/transition';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
 	import ProjectModal from '$lib/components/ProjectModal.svelte';
-	import { projects } from '$lib/data/projects';
 	import type { Project } from '$lib/data/projects';
+	import type { PageData } from './$types';
+
+	export let data: PageData;
 
 	let visible = false;
 	let projectsVisible = false;
 	let aboutVisible = false;
 	let selectedProject: Project | null = null;
 	let isModalOpen = false;
+
+	$: featuredProjects = data.featuredProjects || [];
 
 	onMount(() => {
 		setTimeout(() => (visible = true), 300);
@@ -36,12 +40,6 @@
 			observer.disconnect();
 		};
 	});
-
-	const featuredProjects = projects.filter(p => 
-		p.thumbnail === '/images/project1.jpg' || 
-		p.thumbnail === '/images/project3.jpg' || 
-		p.thumbnail === '/images/project6.jpg'
-	);
 
 	function handleProjectClick(event: CustomEvent<Project>) {
 		selectedProject = event.detail;
