@@ -49,7 +49,7 @@
 		<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 mb-16 text-center">
 			<div in:fly={{ y: 20, duration: 600 }}>
 				<span class="text-accent text-xs font-semibold tracking-wider uppercase mb-3 inline-block">About</span>
-				<h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-5 text-charcoal tracking-tight">About Us</h1>
+				<h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-5 text-charcoal tracking-tight">About</h1>
 				<p class="text-base sm:text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
 					Creating architecture that stands the test of time through precision and elegance.
 				</p>
@@ -78,8 +78,8 @@
 					<!-- Content - Takes 3 columns -->
 					<div class="lg:col-span-3 space-y-6" in:fly={{ x: 30, duration: 600, delay: 200 }}>
 						<div>
-							<h2 class="text-3xl sm:text-4xl font-bold mb-3 text-charcoal">
-								Don Wallet Construction Company Limited
+							<h2 class="text-3xl sm:text-4xl mb-3 text-charcoal">
+								<span class="font-bold">Don Wallet</span> <span class="font-normal text-2xl sm:text-3xl">Construction Company Limited</span>
 							</h2>
 							<p class="text-accent font-semibold text-base mb-4">Principal Architect & Founder</p>
 							<h3 class="text-2xl sm:text-3xl font-extrabold mb-3 text-charcoal">
@@ -132,8 +132,8 @@
 				<div in:fly={{ y: 30, duration: 600 }}>
 					<div class="text-center mb-12">
 						<span class="text-accent text-xs font-semibold tracking-wider uppercase mb-3 inline-block">Our Approach</span>
-						<h3 class="text-2xl sm:text-3xl font-bold mb-3 text-charcoal">
-							Don Wallet Construction Company Limited
+						<h3 class="text-2xl sm:text-3xl mb-3 text-charcoal">
+							<span class="font-bold">Don Wallet</span> <span class="font-normal text-xl sm:text-2xl">Construction Company Limited</span>
 						</h3>
 						<h2 class="text-3xl sm:text-4xl font-bold mb-5 text-charcoal">
 							Design <span class="text-accent">Philosophy</span>

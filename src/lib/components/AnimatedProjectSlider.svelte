@@ -157,59 +157,10 @@
 		{/each}
 	</div>
 
-	<!-- Thumbnail Strip - Compact -->
-	<div class="mt-5 overflow-hidden">
-		<div class="marquee-container">
-			<div class="marquee-content">
-				{#each [...projects, ...projects] as project, i}
-					<button
-						on:click={() => goTo(i % projects.length)}
-						class="marquee-item flex-shrink-0 w-20 h-20 rounded-lg overflow-hidden transition-all duration-300 ease-out {(i %
-							projects.length) ===
-						currentIndex
-							? 'ring-2 ring-accent scale-105 shadow-md'
-							: 'ring-1 ring-gray-200 hover:ring-gray-300 opacity-60 hover:opacity-100'}"
-					>
-						<img src={project.thumbnail} alt={project.title} class="w-full h-full object-cover" />
-					</button>
-				{/each}
-			</div>
-		</div>
-	</div>
+
 </div>
 
 <!-- Project Modal -->
 <ProjectModal project={selectedProject} bind:isOpen={isModalOpen} on:close={closeModal} />
 
-<style>
-	@keyframes marquee {
-		0% {
-			transform: translateX(0);
-		}
-		100% {
-			transform: translateX(-50%);
-		}
-	}
 
-	.marquee-container {
-		position: relative;
-		width: 100%;
-		overflow: hidden;
-	}
-
-	.marquee-content {
-		display: flex;
-		gap: 0.75rem;
-		animation: marquee 35s linear infinite;
-		will-change: transform;
-	}
-
-	.marquee-content:hover {
-		animation-play-state: paused;
-	}
-
-	.marquee-item {
-		position: relative;
-		transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-	}
-</style>

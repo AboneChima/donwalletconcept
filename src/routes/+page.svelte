@@ -200,9 +200,10 @@
 				<div class="order-2 lg:order-1">
 					<div in:fly={{ x: -30, duration: 600, delay: 100 }}>
 						<span class="text-accent text-xs font-semibold tracking-wider uppercase mb-3 inline-block">About Us</span>
-						<h3 class="text-4xl sm:text-5xl font-extrabold text-charcoal mb-4 tracking-tight leading-tight">
+						<h3 class="text-4xl sm:text-5xl font-extrabold text-charcoal mb-2 tracking-tight leading-tight">
 							Don Wallet
 						</h3>
+						<p class="text-sm text-gray-500 mb-4">Construction Company Limited</p>
 						<h2 class="text-2xl sm:text-3xl font-bold mb-5 text-gray-600 tracking-tight">
 							Design <span class="text-accent">Philosophy</span>
 						</h2>
