@@ -82,20 +82,16 @@
 	}
 
 	async function uploadImage(file: File): Promise<string> {
-		const formData = new FormData();
-		formData.append('file', file);
-
-		const response = await fetch('/api/upload', {
-			method: 'POST',
-			body: formData
+		// Convert image to base64 for storage
+		return new Promise((resolve, reject) => {
+			const reader = new FileReader();
+			reader.onload = () => {
+				const base64 = reader.result as string;
+				resolve(base64);
+			};
+			reader.onerror = reject;
+			reader.readAsDataURL(file);
 		});
-
-		if (!response.ok) {
-			throw new Error('Failed to upload image');
-		}
-
-		const data = await response.json();
-		return data.url;
 	}
 
 	function generateSlug(title: string): string {
