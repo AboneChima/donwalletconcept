@@ -1,14 +1,28 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { fly, fade } from 'svelte/transition';
-	import type { Project } from '$lib/data/projects';
-	import { projects } from '$lib/data/projects';
 
-	let allProjects: Project[] = [...projects];
+	interface Project {
+		id?: string;
+		slug: string;
+		title: string;
+		location: string;
+		year: number;
+		category: string;
+		size?: string;
+		description: string;
+		thumbnail: string;
+		hero: string;
+		images: string[];
+	}
+
+	let allProjects: Project[] = [];
 	let selectedProject: Project | null = null;
 	let isEditing = false;
 	let showDeleteConfirm = false;
 	let projectToDelete: Project | null = null;
+	let loading = false;
+	let error = '';
 
 	// Form state
 	let formData = {
@@ -24,6 +38,34 @@
 
 	const categories = ['Bungalow', 'Duplex', 'Mansion', 'Interiors'];
 
+	onMount(async () => {
+		await fetchProjects();
+	});
+
+	async function fetchProjects() {
+		loading = true;
+		try {
+			const response = await fetch('/api/projects');
+			if (response.ok) {
+				allProjects = await response.json();
+			} else {
+				error = 'Failed to load projects';
+			}
+		} catch (err) {
+			error = 'Failed to connect to database';
+			console.error(err);
+		} finally {
+			loading = false;
+		}
+	}
+
+	function generateSlug(title: string): string {
+		return title
+			.toLowerCase()
+			.replace(/[^a-z0-9]+/g, '-')
+			.replace(/(^-|-$)/g, '');
+	}
+
 	function resetForm() {
 		formData = {
 			title: '',
@@ -37,6 +79,7 @@
 		};
 		selectedProject = null;
 		isEditing = false;
+		error = '';
 	}
 
 	function editProject(project: Project) {
@@ -59,19 +102,78 @@
 		showDeleteConfirm = true;
 	}
 
-	function deleteProject() {
-		if (projectToDelete) {
-			allProjects = allProjects.filter((p) => p.slug !== projectToDelete!.slug);
-			showDeleteConfirm = false;
-			projectToDelete = null;
+	async function deleteProject() {
+		if (!projectToDelete?.id) return;
+
+		loading = true;
+		try {
+			const response = await fetch(`/api/projects/${projectToDelete.id}`, {
+				method: 'DELETE'
+			});
+
+			if (response.ok) {
+				await fetchProjects();
+				showDeleteConfirm = false;
+				projectToDelete = null;
+			} else {
+				error = 'Failed to delete project';
+			}
+		} catch (err) {
+			error = 'Failed to delete project';
+			console.error(err);
+		} finally {
+			loading = false;
 		}
 	}
 
-	function saveProject() {
-		// In a real app, this would save to a database
-		console.log('Saving project:', formData);
-		alert('Project saved! (In production, this would save to a database)');
-		resetForm();
+	async function saveProject() {
+		loading = true;
+		error = '';
+
+		try {
+			const projectData = {
+				slug: generateSlug(formData.title),
+				title: formData.title,
+				location: formData.location,
+				year: formData.year,
+				category: formData.category,
+				size: formData.size || null,
+				description: formData.description,
+				thumbnail: formData.thumbnail,
+				hero: formData.thumbnail,
+				images: formData.images
+			};
+
+			let response;
+			if (isEditing && selectedProject?.id) {
+				// Update existing project
+				response = await fetch(`/api/projects/${selectedProject.id}`, {
+					method: 'PUT',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(projectData)
+				});
+			} else {
+				// Create new project
+				response = await fetch('/api/projects', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(projectData)
+				});
+			}
+
+			if (response.ok) {
+				await fetchProjects();
+				resetForm();
+			} else {
+				const data = await response.json();
+				error = data.error || 'Failed to save project';
+			}
+		} catch (err) {
+			error = 'Failed to save project';
+			console.error(err);
+		} finally {
+			loading = false;
+		}
 	}
 </script>
 
@@ -107,6 +209,22 @@
 	</div>
 
 	<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+		<!-- Error Message -->
+		{#if error}
+			<div class="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+				{error}
+			</div>
+		{/if}
+
+		<!-- Loading Indicator -->
+		{#if loading}
+			<div class="fixed inset-0 bg-black/20 flex items-center justify-center z-50">
+				<div class="bg-white rounded-lg p-6 shadow-xl">
+					<div class="animate-spin rounded-full h-12 w-12 border-b-2 border-accent mx-auto"></div>
+					<p class="mt-4 text-sm text-gray-600">Loading...</p>
+				</div>
+			</div>
+		{/if}
 		<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 			<!-- Project Form -->
 			<div class="lg:col-span-2">
