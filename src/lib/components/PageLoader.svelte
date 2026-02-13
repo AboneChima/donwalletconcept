@@ -23,10 +23,10 @@
 					class="absolute inset-0 border-4 border-accent border-t-transparent rounded-full animate-spin"
 				></div>
 			</div>
-			<p class="text-sm font-bold text-charcoal tracking-tight">
-				<span class="font-extrabold">DON WALLET</span> CONSTRUCTION
+			<p class="text-2xl font-extrabold text-charcoal tracking-tight leading-tight">
+				DON WALLET
 			</p>
-			<p class="text-xs text-gray-500 tracking-wider mt-1">Company Limited</p>
+			<p class="text-xs text-gray-500 tracking-wide mt-2 font-light">Construction Company Limited</p>
 		</div>
 	</div>
 {/if}

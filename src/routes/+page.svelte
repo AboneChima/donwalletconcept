@@ -69,7 +69,7 @@
 							<span
 								class="px-4 py-2 bg-gray-100 text-charcoal text-xs font-semibold rounded-full tracking-wider uppercase"
 							>
-								Architecture & Design
+								Don Wallet Construction Company Ltd
 							</span>
 						</div>
 						<h1
@@ -200,10 +200,10 @@
 				<div class="order-2 lg:order-1">
 					<div in:fly={{ x: -30, duration: 600, delay: 100 }}>
 						<span class="text-accent text-xs font-semibold tracking-wider uppercase mb-3 inline-block">About Us</span>
-						<p class="text-sm text-gray-500 mb-3">
-							<span class="font-bold">Don Wallet</span> Construction Company Limited
-						</p>
-						<h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5 text-charcoal tracking-tight">
+						<h3 class="text-4xl sm:text-5xl font-extrabold text-charcoal mb-4 tracking-tight leading-tight">
+							Don Wallet
+						</h3>
+						<h2 class="text-2xl sm:text-3xl font-bold mb-5 text-gray-600 tracking-tight">
 							Design <span class="text-accent">Philosophy</span>
 						</h2>
 						<p class="text-base sm:text-lg text-gray-600 mb-4 leading-relaxed">
@@ -239,9 +239,7 @@
 						/>
 						<!-- Floating badge - positioned at top to avoid face -->
 						<div class="absolute top-4 left-4 right-4 bg-white/95 backdrop-blur-sm p-4 rounded-xl shadow-lg">
-							<p class="text-charcoal font-extrabold text-base">Don Wallet</p>
-							<p class="text-charcoal text-xs font-medium">Construction Company Limited</p>
-							<p class="text-accent text-sm font-semibold mt-1">Principal Architect</p>
+							<p class="text-charcoal font-extrabold text-lg">Don Wallet</p>
 						</div>
 					</div>
 				</div>
