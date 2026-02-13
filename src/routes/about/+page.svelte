@@ -48,7 +48,7 @@
 		<!-- Hero - Minimal -->
 		<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-12 mb-16 text-center">
 			<div in:fly={{ y: 20, duration: 600 }}>
-				<span class="text-accent text-xs font-semibold tracking-wider uppercase mb-3 inline-block">About</span>
+				<span class="text-accent text-xs font-semibold tracking-wider uppercase mb-3 inline-block">About Us</span>
 				<h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold mb-5 text-charcoal tracking-tight">About</h1>
 				<p class="text-base sm:text-lg text-gray-600 leading-relaxed max-w-2xl mx-auto">
 					Creating architecture that stands the test of time through precision and elegance.
@@ -78,13 +78,11 @@
 					<!-- Content - Takes 3 columns -->
 					<div class="lg:col-span-3 space-y-6" in:fly={{ x: 30, duration: 600, delay: 200 }}>
 						<div>
-							<h2 class="text-3xl sm:text-4xl mb-3 text-charcoal">
-								<span class="font-bold">Don Wallet</span> <span class="font-normal text-2xl sm:text-3xl">Construction Company Limited</span>
-							</h2>
-							<p class="text-accent font-semibold text-base mb-4">Principal Architect & Founder</p>
-							<h3 class="text-2xl sm:text-3xl font-extrabold mb-3 text-charcoal">
+							<h2 class="text-3xl sm:text-4xl font-extrabold mb-2 text-charcoal leading-tight">
 								Don Wallet
-							</h3>
+							</h2>
+							<p class="text-sm text-gray-500 mb-4">Construction Company Limited</p>
+							<p class="text-accent font-semibold text-base mb-4">Principal Architect & Founder</p>
 							<p class="text-base text-gray-600 leading-relaxed">
 								A visionary architect specializing in residential design, bringing over 15 years of
 								expertise in creating exceptional living spaces across Nigeria.
@@ -131,10 +129,13 @@
 			<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-12">
 				<div in:fly={{ y: 30, duration: 600 }}>
 					<div class="text-center mb-12">
-						<span class="text-accent text-xs font-semibold tracking-wider uppercase mb-3 inline-block">Our Approach</span>
-						<h3 class="text-2xl sm:text-3xl mb-3 text-charcoal">
-							<span class="font-bold">Don Wallet</span> <span class="font-normal text-xl sm:text-2xl">Construction Company Limited</span>
-						</h3>
+						<span class="text-accent text-xs font-semibold tracking-wider uppercase mb-4 inline-block">Our Approach</span>
+						<div class="mb-6">
+							<h3 class="text-3xl sm:text-4xl font-extrabold text-charcoal leading-tight mb-2">
+								Don Wallet
+							</h3>
+							<p class="text-base sm:text-lg text-gray-500 tracking-wide">Construction Company Limited</p>
+						</div>
 						<h2 class="text-3xl sm:text-4xl font-bold mb-5 text-charcoal">
 							Design <span class="text-accent">Philosophy</span>
 						</h2>
