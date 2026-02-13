@@ -28,7 +28,7 @@
 </script>
 
 <svelte:head>
-	<title>Projects - Don Wallet Concept</title>
+	<title>Projects - Don Wallet Construction Company Limited</title>
 </svelte:head>
 
 <div class="pt-24 sm:pt-28 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-12">

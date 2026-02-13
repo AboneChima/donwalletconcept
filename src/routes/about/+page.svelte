@@ -40,7 +40,7 @@
 </script>
 
 <svelte:head>
-	<title>About - Don Wallet Concept</title>
+	<title>About - Don Wallet Construction Company Limited</title>
 </svelte:head>
 
 <div class="pt-20 sm:pt-24 pb-16 sm:pb-20">
@@ -78,8 +78,13 @@
 					<!-- Content - Takes 3 columns -->
 					<div class="lg:col-span-3 space-y-6" in:fly={{ x: 30, duration: 600, delay: 200 }}>
 						<div>
-							<h2 class="text-3xl sm:text-4xl font-bold mb-3 text-charcoal">Don Wallet</h2>
-							<p class="text-accent font-semibold text-base mb-4">Principal Architect & Founder</p>
+							<h2 class="text-3xl sm:text-4xl font-bold mb-3 text-charcoal">
+								<span class="font-extrabold">Don Wallet</span>
+							</h2>
+							<p class="text-accent font-semibold text-base mb-2">Principal Architect & Founder</p>
+							<p class="text-sm text-gray-500 mb-4">
+								<span class="font-bold">Don Wallet</span> Construction Company Limited
+							</p>
 							<p class="text-base text-gray-600 leading-relaxed">
 								A visionary architect specializing in residential design, bringing over 15 years of
 								expertise in creating exceptional living spaces across Nigeria.

@@ -9,8 +9,10 @@
 						<span class="text-charcoal font-bold text-lg">DW</span>
 					</div>
 					<div>
-						<div class="text-sm font-bold tracking-tight">DON WALLET</div>
-						<div class="text-[10px] tracking-widest text-gray-accent uppercase">Concept</div>
+						<div class="text-sm font-bold tracking-tight">
+							<span class="font-extrabold">DON WALLET</span> CONSTRUCTION
+						</div>
+						<div class="text-[10px] tracking-widest text-gray-accent uppercase">Company Limited</div>
 					</div>
 				</div>
 				<p class="text-gray-accent text-sm">Designing Spaces With Precision</p>
@@ -47,13 +49,13 @@
 				<div class="space-y-2 text-sm">
 					<p class="break-words">
 						Email: <a
-							href="mailto:info@donwallet.com"
-							class="hover:text-accent transition-colors">info@donwallet.com</a
+							href="mailto:ugoobiorah@gmail.com"
+							class="hover:text-accent transition-colors">ugoobiorah@gmail.com</a
 						>
 					</p>
 					<p>
-						Phone: <a href="tel:+1234567890" class="hover:text-accent transition-colors"
-							>+123 456 7890</a
+						Phone: <a href="tel:+2348137706136" class="hover:text-accent transition-colors"
+							>+234 813 770 6136</a
 						>
 					</p>
 				</div>
@@ -63,7 +65,7 @@
 		<div
 			class="mt-12 pt-8 border-t border-gray-accent/20 text-center text-xs sm:text-sm text-gray-accent"
 		>
-			<p>&copy; {new Date().getFullYear()} Don Wallet Concept. All rights reserved.</p>
+			<p>&copy; {new Date().getFullYear()} Don Wallet Construction Company Limited. All rights reserved.</p>
 		</div>
 	</div>
 </footer>

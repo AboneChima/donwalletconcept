@@ -37,9 +37,11 @@
 					<span class="text-white font-bold text-sm">DW</span>
 				</div>
 				<div class="hidden sm:block">
-					<div class="text-xs font-bold tracking-tight text-charcoal leading-none">DON WALLET</div>
-					<div class="text-[9px] tracking-[0.2em] text-gray-400 uppercase leading-none mt-0.5">
-						Concept
+					<div class="text-xs font-bold tracking-tight text-charcoal leading-none">
+						<span class="font-extrabold">DON WALLET</span> CONSTRUCTION
+					</div>
+					<div class="text-[9px] tracking-[0.15em] text-gray-400 uppercase leading-none mt-0.5">
+						Company Limited
 					</div>
 				</div>
 			</a>

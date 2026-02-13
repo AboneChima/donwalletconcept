@@ -1,2 +1,6 @@
-<!-- Admin layout without navigation and footer -->
+<script lang="ts">
+	import '../../app.css';
+</script>
+
+<!-- Admin layout - completely separate from main site -->
 <slot />

@@ -50,7 +50,7 @@
 </script>
 
 <svelte:head>
-	<title>Don Wallet Concept - Designing Spaces With Precision</title>
+	<title>Don Wallet Construction Company Limited - Designing Spaces With Precision</title>
 </svelte:head>
 
 <!-- Hero Section - Minimal & Modern with Animations -->
@@ -115,9 +115,9 @@
 				{#if visible}
 					<div in:fly={{ x: 50, duration: 1200, delay: 200 }} class="relative">
 						<div class="relative rounded-2xl overflow-hidden shadow-xl transform transition-transform duration-700 hover:scale-[1.02]">
-							<!-- High-quality architectural photo from Unsplash -->
+							<!-- High-quality architectural photo -->
 							<img
-								src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80"
+								src="/images/hero section image banner.jpg"
 								alt="Modern Architecture"
 								class="w-full h-[350px] sm:h-[450px] lg:h-[550px] object-cover"
 							/>
@@ -200,6 +200,9 @@
 				<div class="order-2 lg:order-1">
 					<div in:fly={{ x: -30, duration: 600, delay: 100 }}>
 						<span class="text-accent text-xs font-semibold tracking-wider uppercase mb-3 inline-block">About Us</span>
+						<p class="text-sm text-gray-500 mb-3">
+							<span class="font-bold">Don Wallet</span> Construction Company Limited
+						</p>
 						<h2 class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5 text-charcoal tracking-tight">
 							Design <span class="text-accent">Philosophy</span>
 						</h2>
@@ -236,8 +239,9 @@
 						/>
 						<!-- Floating badge - positioned at top to avoid face -->
 						<div class="absolute top-4 left-4 right-4 bg-white/95 backdrop-blur-sm p-4 rounded-xl shadow-lg">
-							<p class="text-charcoal font-bold text-base">Don Wallet</p>
-							<p class="text-accent text-sm font-semibold">Principal Architect</p>
+							<p class="text-charcoal font-extrabold text-base">Don Wallet</p>
+							<p class="text-charcoal text-xs font-medium">Construction Company Limited</p>
+							<p class="text-accent text-sm font-semibold mt-1">Principal Architect</p>
 						</div>
 					</div>
 				</div>
