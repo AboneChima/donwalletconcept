@@ -1,7 +1,13 @@
 import { neon } from '@neondatabase/serverless';
-import { POSTGRES_URL } from '$env/static/private';
+import { env } from '$env/dynamic/private';
 
-export const sql = neon(POSTGRES_URL);
+const POSTGRES_URL = env.POSTGRES_URL || '';
+
+if (!POSTGRES_URL) {
+	console.warn('POSTGRES_URL not set - database features will not work');
+}
+
+export const sql = POSTGRES_URL ? neon(POSTGRES_URL) : null;
 
 export interface Project {
 	id: string;

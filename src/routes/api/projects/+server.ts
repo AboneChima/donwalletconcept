@@ -5,6 +5,10 @@ import type { RequestHandler } from './$types';
 // GET all projects
 export const GET: RequestHandler = async () => {
 	try {
+		if (!sql) {
+			return json({ error: 'Database not configured' }, { status: 503 });
+		}
+		
 		const projects = await sql`
 			SELECT * FROM projects 
 			ORDER BY created_at DESC
@@ -19,6 +23,10 @@ export const GET: RequestHandler = async () => {
 // POST create new project
 export const POST: RequestHandler = async ({ request }) => {
 	try {
+		if (!sql) {
+			return json({ error: 'Database not configured' }, { status: 503 });
+		}
+		
 		const data = await request.json();
 		
 		const result = await sql`

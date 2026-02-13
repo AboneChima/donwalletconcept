@@ -5,6 +5,10 @@ import type { RequestHandler } from './$types';
 // PUT update project
 export const PUT: RequestHandler = async ({ params, request }) => {
 	try {
+		if (!sql) {
+			return json({ error: 'Database not configured' }, { status: 503 });
+		}
+		
 		const data = await request.json();
 		const { id } = params;
 		
@@ -38,6 +42,10 @@ export const PUT: RequestHandler = async ({ params, request }) => {
 // DELETE project
 export const DELETE: RequestHandler = async ({ params }) => {
 	try {
+		if (!sql) {
+			return json({ error: 'Database not configured' }, { status: 503 });
+		}
+		
 		const { id } = params;
 		
 		const result = await sql`
