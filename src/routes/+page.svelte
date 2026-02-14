@@ -51,8 +51,9 @@
 	<title>Don Wallet Construction Company Limited - Designing Spaces With Precision</title>
 </svelte:head>
 
-<!-- Hero Section - Minimal & Modern with Animations -->
-<section class="relative min-h-screen flex items-center bg-white overflow-hidden">
+<div class="snap-container">
+	<!-- Hero Section - Minimal & Modern with Animations -->
+	<section class="snap-section relative min-h-screen flex items-center bg-white overflow-hidden">
 	<!-- Animated background decoration -->
 	<div class="absolute top-20 right-10 w-64 h-64 bg-accent/5 rounded-full blur-3xl animate-float"></div>
 	<div class="absolute bottom-20 left-10 w-80 h-80 bg-gray-100 rounded-full blur-3xl" style="animation: float 8s ease-in-out infinite 2s;"></div>
@@ -143,10 +144,10 @@
 			</svg>
 		</div>
 	</div>
-</section>
+	</section>
 
-<!-- Featured Projects - Minimal -->
-<section id="projects" class="py-16 sm:py-20 px-4 sm:px-6 lg:px-12 bg-white">
+	<!-- Featured Projects - Minimal -->
+	<section id="projects" class="snap-section py-16 sm:py-20 px-4 sm:px-6 lg:px-12 bg-white min-h-screen flex items-center">
 	<div class="max-w-7xl mx-auto">
 		{#if projectsVisible}
 			<div in:fly={{ y: 30, duration: 800 }} class="mb-12 text-center">
@@ -159,13 +160,19 @@
 				</p>
 			</div>
 
-			<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-				{#each featuredProjects as project, i}
-					<div in:fly={{ y: 30, duration: 600, delay: i * 100 }}>
-						<ProjectCard {project} on:click={handleProjectClick} />
-					</div>
-				{/each}
-			</div>
+			{#if featuredProjects.length > 0}
+				<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+					{#each featuredProjects as project, i}
+						<div in:fly={{ y: 30, duration: 600, delay: i * 100 }}>
+							<ProjectCard {project} on:click={handleProjectClick} />
+						</div>
+					{/each}
+				</div>
+			{:else}
+				<div class="text-center py-12">
+					<p class="text-gray-500">Loading projects...</p>
+				</div>
+			{/if}
 
 			<div class="text-center mt-10" in:fly={{ y: 20, duration: 600, delay: 400 }}>
 				<a
@@ -185,10 +192,10 @@
 			</div>
 		{/if}
 	</div>
-</section>
+	</section>
 
-<!-- About Preview - Minimal & Modern -->
-<section id="about" class="py-16 sm:py-20 px-4 sm:px-6 lg:px-12 bg-gray-50">
+	<!-- About Preview - Minimal & Modern -->
+	<section id="about" class="snap-section py-16 sm:py-20 px-4 sm:px-6 lg:px-12 bg-gray-50 min-h-screen flex items-center">
 	<div class="max-w-6xl mx-auto">
 		{#if aboutVisible}
 			<div
@@ -245,10 +252,10 @@
 			</div>
 		{/if}
 	</div>
-</section>
+	</section>
 
-<!-- CTA Section - Minimal -->
-<section class="py-16 sm:py-20 px-4 sm:px-6 text-center bg-gray-50">
+	<!-- CTA Section - Minimal -->
+	<section class="snap-section py-16 sm:py-20 px-4 sm:px-6 text-center bg-gray-50 min-h-screen flex items-center">
 	<div class="max-w-3xl mx-auto">
 		<h2
 			class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5 text-charcoal leading-tight tracking-tight"
@@ -272,8 +279,9 @@
 				/>
 			</svg>
 		</a>
-	</div>
-</section>
+		</div>
+	</section>
+</div>
 
 <!-- Project Modal -->
 <ProjectModal

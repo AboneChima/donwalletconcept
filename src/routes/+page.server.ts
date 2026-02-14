@@ -9,16 +9,28 @@ export const load: PageServerLoad = async () => {
 			SELECT * FROM projects ORDER BY year DESC, created_at DESC
 		`;
 
-		// Get featured projects (1, 3, 6)
+		console.log('Total projects loaded:', allProjects.length);
+
+		// Get featured projects (1, 3, 6) - using LIKE for flexibility
 		const featuredProjects = allProjects.filter(
-			(p: any) =>
-				p.thumbnail === '/images/project1.jpg' ||
-				p.thumbnail === '/images/project3.jpg' ||
-				p.thumbnail === '/images/project6.jpg'
+			(p: any) => {
+				const thumb = p.thumbnail || '';
+				return thumb.includes('project1.jpg') || 
+				       thumb.includes('project3.jpg') || 
+				       thumb.includes('project6.jpg');
+			}
 		);
 
+		console.log('Featured projects found:', featuredProjects.length);
+		console.log('Featured project thumbnails:', featuredProjects.map((p: any) => p.thumbnail));
+
+		// If no featured projects found, use first 3 projects
+		const finalFeatured = featuredProjects.length > 0 
+			? featuredProjects 
+			: allProjects.slice(0, 3);
+
 		return {
-			featuredProjects
+			featuredProjects: finalFeatured
 		};
 	} catch (error) {
 		console.error('Failed to load projects:', error);

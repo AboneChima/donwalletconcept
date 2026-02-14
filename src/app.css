@@ -93,3 +93,25 @@ body {
 		background-clip: text;
 	}
 }
+
+/* Smooth Section Scrolling */
+.snap-section {
+	scroll-snap-align: start;
+	scroll-snap-stop: normal;
+	min-height: 100vh;
+}
+
+.snap-container {
+	scroll-snap-type: y proximity;
+	scroll-padding-top: 80px;
+}
+
+/* Hide scrollbar but keep functionality */
+.hide-scrollbar::-webkit-scrollbar {
+	display: none;
+}
+
+.hide-scrollbar {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
