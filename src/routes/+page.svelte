@@ -51,9 +51,8 @@
 	<title>Don Wallet Construction Company Limited - Designing Spaces With Precision</title>
 </svelte:head>
 
-<div class="snap-container">
-	<!-- Hero Section - Minimal & Modern with Animations -->
-	<section class="snap-section relative min-h-screen flex items-center bg-white overflow-hidden">
+<!-- Hero Section - Minimal & Modern with Animations -->
+<section class="relative min-h-screen flex items-center bg-white overflow-hidden">
 	<!-- Animated background decoration -->
 	<div class="absolute top-20 right-10 w-64 h-64 bg-accent/5 rounded-full blur-3xl animate-float"></div>
 	<div class="absolute bottom-20 left-10 w-80 h-80 bg-gray-100 rounded-full blur-3xl" style="animation: float 8s ease-in-out infinite 2s;"></div>
@@ -144,10 +143,10 @@
 			</svg>
 		</div>
 	</div>
-	</section>
+</section>
 
-	<!-- Featured Projects - Minimal -->
-	<section id="projects" class="snap-section py-16 sm:py-20 px-4 sm:px-6 lg:px-12 bg-white min-h-screen flex items-center">
+<!-- Featured Projects - Minimal -->
+<section id="projects" class="py-16 sm:py-20 px-4 sm:px-6 lg:px-12 bg-white">
 	<div class="max-w-7xl mx-auto">
 		{#if projectsVisible}
 			<div in:fly={{ y: 30, duration: 800 }} class="mb-12 text-center">
@@ -192,10 +191,10 @@
 			</div>
 		{/if}
 	</div>
-	</section>
+</section>
 
-	<!-- About Preview - Minimal & Modern -->
-	<section id="about" class="snap-section py-16 sm:py-20 px-4 sm:px-6 lg:px-12 bg-gray-50 min-h-screen flex items-center">
+<!-- About Preview - Minimal & Modern -->
+<section id="about" class="py-16 sm:py-20 px-4 sm:px-6 lg:px-12 bg-gray-50">
 	<div class="max-w-6xl mx-auto">
 		{#if aboutVisible}
 			<div
@@ -252,10 +251,10 @@
 			</div>
 		{/if}
 	</div>
-	</section>
+</section>
 
-	<!-- CTA Section - Minimal -->
-	<section class="snap-section py-16 sm:py-20 px-4 sm:px-6 text-center bg-gray-50 min-h-screen flex items-center">
+<!-- CTA Section - Minimal -->
+<section class="py-16 sm:py-20 px-4 sm:px-6 text-center bg-gray-50">
 	<div class="max-w-3xl mx-auto">
 		<h2
 			class="text-3xl sm:text-4xl lg:text-5xl font-bold mb-5 text-charcoal leading-tight tracking-tight"
@@ -279,9 +278,8 @@
 				/>
 			</svg>
 		</a>
-		</div>
-	</section>
-</div>
+	</div>
+</section>
 
 <!-- Project Modal -->
 <ProjectModal
